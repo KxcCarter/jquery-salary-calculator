@@ -4,9 +4,11 @@ const employees = [];
 let monthlyCost = 0;
 const costLimit = 20000;
 
+
 function init() {
     console.log(`Hey it's jQ!`);
     $('#js-new-emp-form').on('submit', addEmp);
+    $('#js-emp-display').on('click', '.js-delete-emp', deleteEmp);
 }
 
 function addEmp(event) {
@@ -15,11 +17,7 @@ function addEmp(event) {
     createNewEmp();
     // update DOM
     renderEmpData();
-
-
 }
-
-
 
 
 function createNewEmp() {
@@ -30,11 +28,12 @@ function createNewEmp() {
         lName: $('#js-emp-lName').val(),
         empID: parseInt($('#js-emp-ID').val()),
         title: $('#js-emp-title').val(),
-        salary: parseFloat($('#js-emp-salary').val())
+        salary: parseFloat($('#js-emp-salary').val()),
     }
+
     employees.push(newEmp);
 
-    monthlyCost += (newEmp.salary / 12);
+
 
     $('#js-new-emp-form').trigger('reset');
 }
@@ -52,21 +51,34 @@ function renderEmpData() {
         <td>${emp.title}</td>
         <td>${emp.salary}</td>
         <td class="btn btn-danger js-delete-emp">X</td>
-        
-        
       </tr>
 `);
         // deal with monthlyCost
-
+        handleMonthlyCost(emp);
+        // display total employees;
+        $('#js-total-emps').text(employees.length);
     }
-
-
 }
 
-function handleMonthlyCost() {
-    if (monthlyCost > (costLimit * 0.85)) {
-        // style monthlyCost yellow
-    } else if (monthlyCost > costLimit) {
-        //style monthlyCost red.
+function handleMonthlyCost(emp) {
+
+    monthlyCost += (emp.salary / 12);
+    $('#js-total-monthly').text(monthlyCost);
+
+    if (monthlyCost > costLimit) {
+        // style monthlyCost red
+        $('#js-total-monthly').addClass('bg-danger');
+    } else if (monthlyCost > (costLimit * 0.8)) {
+        //style monthlyCost yellow
+        $('#js-total-monthly').addClass('bg-warning');
     }
+}
+
+function deleteEmp() {
+    $(this).parent().fadeOut();
+
+    // figuting out how to access the data from selected item
+    let target = $(this).parent()[0].cells[2].textContent;
+    console.log(target);
+
 }
