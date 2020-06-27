@@ -30,6 +30,16 @@ function createNewEmp() {
         title: $('#js-emp-title').val(),
         salary: parseFloat($('#js-emp-salary').val()),
     }
+
+    if (!newEmp.empID || !newEmp.salary) {
+        $('#js-new-emp-form').append(`
+        <h4 class="text-danger input-error">Please include Employee ID and salary!</h4>
+        `)
+        return false
+    } else {
+        $('h4').remove('.input-error');
+    }
+
     employees.push(newEmp);
     $('#js-new-emp-form').trigger('reset');
 } // end createNewEmp
@@ -70,7 +80,7 @@ function handleMonthlyCost() {
             $('#js-total-monthly').addClass('bg-warning');
         }
     }
-    $('#js-total-monthly').text(`$${monthlyCost}`);
+    $('#js-total-monthly').text(`$${monthlyCost.toFixed(2)}`);
 } // end handleMonthlyCost
 
 
