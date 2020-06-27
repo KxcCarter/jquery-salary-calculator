@@ -70,7 +70,7 @@ function handleMonthlyCost() {
             $('#js-total-monthly').addClass('bg-warning');
         }
     }
-    $('#js-total-monthly').text(monthlyCost);
+    $('#js-total-monthly').text(`$${monthlyCost}`);
 } // end handleMonthlyCost
 
 
