@@ -88,14 +88,11 @@ function deleteEmp() {
     $(this).parent().fadeOut();
 
     let target = $(this).parent()[0].cells[2].textContent;
-    console.log(target);
 
     for (let emp of employees) {
         if (emp.empID == target) {
             let toDelete = employees.indexOf(emp);
             employees.splice(toDelete, 1);
-
-            console.log(employees.length);
         }
     }
     renderEmpData();
