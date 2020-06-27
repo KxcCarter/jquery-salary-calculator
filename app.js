@@ -50,26 +50,27 @@ function renderEmpData() {
         <td class="btn btn-danger js-delete-emp">X</td>
       </tr>
 `);
-        // deal with monthlyCost
-        handleMonthlyCost(emp);
-        // display total employees;
-        $('#js-total-emps').text(employees.length);
     }
+    // deal with monthlyCost
+    handleMonthlyCost();
+    // display total employees;
+    $('#js-total-emps').text(employees.length);
 } // end renderEmpData
 
 
-function handleMonthlyCost(emp) {
-
-    monthlyCost += (emp.salary / 12);
-    $('#js-total-monthly').text(monthlyCost);
-
-    if (monthlyCost > costLimit) {
-        // style monthlyCost red
-        $('#js-total-monthly').addClass('bg-danger');
-    } else if (monthlyCost > (costLimit * 0.8)) {
-        //style monthlyCost yellow
-        $('#js-total-monthly').addClass('bg-warning');
+function handleMonthlyCost() {
+    monthlyCost = 0;
+    for (let emp of employees) {
+        monthlyCost += (emp.salary / 12);
+        if (monthlyCost > costLimit) {
+            // style monthlyCost red
+            $('#js-total-monthly').addClass('bg-danger');
+        } else if (monthlyCost > (costLimit * 0.8)) {
+            //style monthlyCost yellow
+            $('#js-total-monthly').addClass('bg-warning');
+        }
     }
+    $('#js-total-monthly').text(monthlyCost);
 } // end handleMonthlyCost
 
 
@@ -81,15 +82,12 @@ function deleteEmp() {
 
     for (let emp of employees) {
         if (emp.empID == target) {
-            console.log(emp);
-
             let toDelete = employees.indexOf(emp);
-            monthlyCost -= (emp.salary / 12)
             employees.splice(toDelete, 1);
-            renderEmpData();
-            console.log(`oh he gone`);
 
+            console.log(employees.length);
         }
     }
+    renderEmpData();
 
 } // end deleteEmp
