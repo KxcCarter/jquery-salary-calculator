@@ -9,7 +9,7 @@ function init() {
     console.log(`Hey it's jQ!`);
     $('#js-new-emp-form').on('submit', addEmp);
     $('#js-emp-display').on('click', '.js-delete-emp', deleteEmp);
-}
+} // end init
 
 function addEmp(event) {
     event.preventDefault();
@@ -17,7 +17,7 @@ function addEmp(event) {
     createNewEmp();
     // update DOM
     renderEmpData();
-}
+} // end addEmp
 
 
 function createNewEmp() {
@@ -30,13 +30,10 @@ function createNewEmp() {
         title: $('#js-emp-title').val(),
         salary: parseFloat($('#js-emp-salary').val()),
     }
-
     employees.push(newEmp);
-
-
-
     $('#js-new-emp-form').trigger('reset');
-}
+} // end createNewEmp
+
 
 function renderEmpData() {
     console.log(`in renderEmpData`);
@@ -58,7 +55,8 @@ function renderEmpData() {
         // display total employees;
         $('#js-total-emps').text(employees.length);
     }
-}
+} // end renderEmpData
+
 
 function handleMonthlyCost(emp) {
 
@@ -72,13 +70,26 @@ function handleMonthlyCost(emp) {
         //style monthlyCost yellow
         $('#js-total-monthly').addClass('bg-warning');
     }
-}
+} // end handleMonthlyCost
+
 
 function deleteEmp() {
     $(this).parent().fadeOut();
 
-    // figuting out how to access the data from selected item
     let target = $(this).parent()[0].cells[2].textContent;
     console.log(target);
 
-}
+    for (let emp of employees) {
+        if (emp.empID == target) {
+            console.log(emp);
+
+            let toDelete = employees.indexOf(emp);
+            monthlyCost -= (emp.salary / 12)
+            employees.splice(toDelete, 1);
+            renderEmpData();
+            console.log(`oh he gone`);
+
+        }
+    }
+
+} // end deleteEmp
