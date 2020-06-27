@@ -5,6 +5,11 @@ body {
     background-size: cover;
 }
 
+
+/* .display-4 {
+    color: #012623;
+} */
+
 .input-group {
     justify-content: center;
 }
@@ -28,5 +33,9 @@ thead {
 }
 
 .btn-outline-success {
+    margin-top: 30px;
+}
+
+.input-group {
     margin-top: 30px;
 }
