@@ -103,6 +103,7 @@ function deleteEmp() {
         if (emp.empID == target) {
             let toDelete = employees.indexOf(emp);
             employees.splice(toDelete, 1);
+            idControl.splice(toDelete, 1);
         }
     }
     renderEmpData();
