@@ -95,11 +95,6 @@ function handleMonthlyCost() {
 
 function deleteEmp() {
     $(this).parent().fadeOut();
-
-
-    console.log($(this).parent().text());
-
-
     let target = $(this).parent()[0].cells[2].textContent;
 
     for (let emp of employees) {
