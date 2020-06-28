@@ -3,7 +3,7 @@ $(document).ready(init);
 const employees = [];
 let monthlyCost = 0;
 const costLimit = 20000;
-
+let idControl = [];
 
 function init() {
     console.log(`Hey it's jQ!`);
@@ -40,6 +40,15 @@ function createNewEmp() {
         $('h4').remove('.input-error');
     }
 
+    if (idControl.includes(newEmp.empID)) {
+        $('#js-new-emp-form').append(`
+        <h4 class="text-danger input-error">That ID is already in use. Please use a unique ID!</h4>
+        `)
+        return false
+    } else {
+        $('h4').remove('.input-error');
+    }
+    idControl.push(newEmp.empID);
     employees.push(newEmp);
     $('#js-new-emp-form').trigger('reset');
 } // end createNewEmp
@@ -51,15 +60,15 @@ function renderEmpData() {
 
     for (let emp of employees) {
         $('#js-emp-display').append(`
-        <tr>
-        <td>${emp.fName}</td>
-        <td>${emp.lName}</td>
-        <td>${emp.empID}</td>
-        <td>${emp.title}</td>
-        <td>${emp.salary}</td>
-        <td class="btn btn-danger js-delete-emp">X</td>
-      </tr>
-`);
+                <tr>
+                <td>${emp.fName}</td>
+                <td>${emp.lName}</td>
+                <td>${emp.empID}</td>
+                <td>${emp.title}</td>
+                <td>${emp.salary}</td>
+                <td class="btn btn-danger js-delete-emp">X</td>
+              </tr>
+        `);
     }
     // deal with monthlyCost
     handleMonthlyCost();
@@ -86,6 +95,10 @@ function handleMonthlyCost() {
 
 function deleteEmp() {
     $(this).parent().fadeOut();
+
+
+    console.log($(this).parent().text());
+
 
     let target = $(this).parent()[0].cells[2].textContent;
 
