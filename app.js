@@ -87,6 +87,8 @@ function handleMonthlyCost() {
         } else if (monthlyCost > (costLimit * 0.8)) {
             //style monthlyCost yellow
             $('#js-total-monthly').addClass('bg-warning');
+        } else {
+            $('#js-total-monthly').removeClass('bg-warning bg-danger');
         }
     }
     $('#js-total-monthly').text(`$${monthlyCost.toFixed(2)}`);
